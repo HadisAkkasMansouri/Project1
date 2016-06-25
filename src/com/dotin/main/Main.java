@@ -4,9 +4,6 @@ import com.dotin.business.XMLFileReader;
 
 import java.util.Scanner;
 
-/**
- * Created by Dotin School1 on 6/22/2016.
- */
 public class Main {
 
     public static void main(String argv[]){
