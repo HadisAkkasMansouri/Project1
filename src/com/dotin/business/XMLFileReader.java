@@ -1,6 +1,7 @@
 package com.dotin.business;
 
 import com.dotin.bean.Deposit;
+import com.sun.org.apache.xerces.internal.impl.xs.identity.Field;
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,8 +20,9 @@ public class XMLFileReader {
     public static void readXMLFile(String url){
 
         try {
-            Class deposit = Deposit.class;
+            Class deposit = Class.forName("depositType");
             Deposit depositt = (Deposit)deposit.newInstance();
+
             File xmlfile = new File(url);
             DocumentBuilderFactory dbfactory = DocumentBuilderFactoryImpl.newInstance();
             DocumentBuilder dBuilder = dbfactory.newDocumentBuilder();
@@ -50,6 +52,8 @@ public class XMLFileReader {
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
