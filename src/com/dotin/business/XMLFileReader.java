@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public class XMLFileReader {
 
@@ -33,10 +34,11 @@ public class XMLFileReader {
 //                    System.out.println("depositType: " + element.getElementsByTagName("depositType").item(0).getTextContent());
 //                    System.out.println("depositBalance: " + element.getElementsByTagName("depositBalance").item(0).getTextContent());
 //                    System.out.println("durationInDays: " + element.getElementsByTagName("durationInDays").item(0).getTextContent()+ "\n");
-                    depositt.setCustomNumber(Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent()));
-//                        file.setDepositBalance(element.getElementsByTagName("depositBalance").item(0).getTextContent());
-                    depositt.setDurationInDays(Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent()));
-                        String str = element.getElementsByTagName("depositType").item(0).getTextContent();
+
+                      depositt.setCustomNumber(Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent()));
+                      depositt.setDepositBalance(new BigDecimal(element.getElementsByTagName("depositBalance").item(0).getTextContent()));
+                      depositt.setDurationInDays(Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent()));
+                      String str = element.getElementsByTagName("depositType").item(0).getTextContent();
                     }
                 }
         } catch (ParserConfigurationException e) {
