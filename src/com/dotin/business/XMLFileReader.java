@@ -32,10 +32,14 @@ public class XMLFileReader {
                  Node node = nodeList.item(i);
                 if ( node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
+
 //                    System.out.println("customerNumber: " + element.getElementsByTagName("customerNumber").item(0).getTextContent());
 //                    System.out.println("depositType: " + element.getElementsByTagName("depositType").item(0).getTextContent());
 //                    System.out.println("depositBalance: " + element.getElementsByTagName("depositBalance").item(0).getTextContent());
 //                    System.out.println("durationInDays: " + element.getElementsByTagName("durationInDays").item(0).getTextContent()+ "\n");
+
+
+
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
                     deposit.setCustomNumber(customerNumber);
