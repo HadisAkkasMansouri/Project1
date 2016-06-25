@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 public class Deposit implements Serializable {
 
     private BigDecimal depositBalance;
-    private Long durationInDays = 10l;
+    private Long durationInDays ;
     private Long customNumber;
     DepositType depositType ;
 
