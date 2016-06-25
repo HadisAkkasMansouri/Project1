@@ -47,7 +47,7 @@ public class XMLFileReader {
                     deposit.setDepositBalance(depositBalance);
                     Long durationInDays = Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent());
                     deposit.setDurationInDays(durationInDays);
-                      String str = element.getElementsByTagName("DepositType").item(0).getTextContent();
+                    String str = element.getElementsByTagName("DepositType").item(0).getTextContent();
                     }
                 }
         } catch (ParserConfigurationException e) {
