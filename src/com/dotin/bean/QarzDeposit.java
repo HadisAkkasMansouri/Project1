@@ -2,6 +2,9 @@ package com.dotin.bean;
 
 public class QarzDeposit extends DepositType {
 
-    private int interestRate = 0;
+    @Override
+    public int getInterestRate(){
+        return 0;
+    }
 
 }
