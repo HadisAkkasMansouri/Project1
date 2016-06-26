@@ -20,8 +20,6 @@ public class XMLFileReader {
     public static void readXMLFile(String url){
 
         try {
-            Class depositType = Class.forName("DepositType");
-            Deposit deposit = (Deposit)depositType.newInstance();
 
             File xmlfile = new File(url);
             DocumentBuilderFactory dbfactory = DocumentBuilderFactoryImpl.newInstance();
@@ -38,6 +36,9 @@ public class XMLFileReader {
 //                    System.out.println("depositBalance: " + element.getElementsByTagName("depositBalance").item(0).getTextContent());
 //                    System.out.println("durationInDays: " + element.getElementsByTagName("durationInDays").item(0).getTextContent()+ "\n");
 
+                    Class depositType = Class.forName("DepositType");
+                    Deposit deposit = (Deposit)depositType.newInstance();
+                    String str = element.getElementsByTagName("DepositType").item(0).getTextContent();
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
                     deposit.setCustomNumber(customerNumber);
@@ -48,8 +49,9 @@ public class XMLFileReader {
                     Long durationInDays = Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent());
                     deposit.setDurationInDays(durationInDays);
 
-                    String str = element.getElementsByTagName("DepositType").item(0).getTextContent();
-                    }
+
+
+                }
                 }
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
