@@ -4,6 +4,10 @@ public class DepositType {
 
     private int interestRate;
 
+    public DepositType(){
+        interestRate = getInterestRate();
+    }
+
     public int getInterestRate() {
         return interestRate;
     }
