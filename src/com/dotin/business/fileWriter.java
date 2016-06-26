@@ -1,6 +1,6 @@
 package com.dotin.business;
 
-public class fileWriter {
+public class FileWriter {
 
 
 }
