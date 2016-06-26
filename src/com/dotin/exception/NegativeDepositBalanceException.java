@@ -1,4 +1,4 @@
-package com.dotin.business;
+package com.dotin.exception;
 
 
 public class NegativeDepositBalanceException extends Exception {
