@@ -48,9 +48,6 @@ public class XMLFileReader {
 
                     Long durationInDays = Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent());
                     deposit.setDurationInDays(durationInDays);
-
-
-
                 }
                 }
         } catch (ParserConfigurationException e) {
