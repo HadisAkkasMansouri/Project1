@@ -1,6 +1,7 @@
 package com.dotin.business;
 
 import com.dotin.bean.Deposit;
+import com.dotin.bean.DepositType;
 import com.dotin.exception.NegativeDepositBalanceException;
 import com.dotin.exception.NegativeDurationInDaysException;
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
@@ -37,11 +38,11 @@ public class XMLFileReader {
 //                    System.out.println("depositBalance: " + element.getElementsByTagName("depositBalance").item(0).getTextContent());
 //                    System.out.println("durationInDays: " + element.getElementsByTagName("durationInDays").item(0).getTextContent()+ "\n");
 
-                    Class depositType = Class.forName("DepositType");
-                    Deposit deposit = (Deposit)depositType.newInstance();
-                    String str = element.getElementsByTagName("DepositType").item(0).getTextContent();
-                    str = String.valueOf(depositType.cast(depositType));
-                    System.out.println(str);
+
+                    String depositTypeStr = element.getElementsByTagName("DepositType").item(0).getTextContent();
+                    Class depositType = Class.forName(depositTypeStr);
+                    DepositType depositType1 = (DepositType)depositType.newInstance();
+                    Deposit deposit = new Deposit();
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
                     deposit.setCustomNumber(customerNumber);
@@ -52,7 +53,7 @@ public class XMLFileReader {
                     Long durationInDays = Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent());
                     deposit.setDurationInDays(durationInDays);
 
-//                    deposit.calculateInterest(depositType.cast(depositType),deposit.setDepositBalance(depositBalance), deposit.setDurationInDays(durationInDays));
+//                    deposit.calculatePayedInterest(depositType1, deposit.setDepositBalance(depositBalance), deposit.setDurationInDays(durationInDays));
                 }
                 }
         } catch (ParserConfigurationException e) {
