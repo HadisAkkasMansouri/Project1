@@ -1,5 +1,8 @@
 package com.dotin.bean;
 
+import com.dotin.exception.NegativeDepositBalanceException;
+import com.dotin.exception.NegativeDurationInDaysException;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -14,7 +17,11 @@ public class Deposit implements Serializable {
         return depositBalance;
     }
 
-    public void setDepositBalance(BigDecimal depositBalance) {
+    public void setDepositBalance(BigDecimal depositBalance) throws NegativeDepositBalanceException {
+
+        if(depositBalance.compareTo(new BigDecimal(0)) < 0){
+            throw new NegativeDepositBalanceException("Deposit Balance should be positive!");
+        }
         this.depositBalance = depositBalance;
     }
 
@@ -22,7 +29,10 @@ public class Deposit implements Serializable {
         return durationInDays;
     }
 
-    public void setDurationInDays(Long durationInDays) {
+    public void setDurationInDays(Long durationInDays) throws NegativeDurationInDaysException {
+        if(durationInDays < 0){
+            throw new NegativeDurationInDaysException("Duration in days should be positive!");
+        }
         this.durationInDays = durationInDays;
     }
 
