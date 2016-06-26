@@ -1,7 +1,8 @@
 package com.dotin.business;
 
 import com.dotin.bean.Deposit;
-import com.sun.org.apache.xerces.internal.impl.xs.identity.Field;
+import com.dotin.exception.NegativeDepositBalanceException;
+import com.dotin.exception.NegativeDurationInDaysException;
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,7 +18,7 @@ import java.math.BigDecimal;
 
 public class XMLFileReader {
 
-    public static void readXMLFile(String url){
+    public static void readXMLFile(String url) throws NegativeDepositBalanceException, NegativeDurationInDaysException {
 
         try {
 
@@ -39,6 +40,8 @@ public class XMLFileReader {
                     Class depositType = Class.forName("DepositType");
                     Deposit deposit = (Deposit)depositType.newInstance();
                     String str = element.getElementsByTagName("DepositType").item(0).getTextContent();
+                    str = String.valueOf(depositType.cast(depositType));
+                    System.out.println(str);
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
                     deposit.setCustomNumber(customerNumber);
@@ -48,6 +51,8 @@ public class XMLFileReader {
 
                     Long durationInDays = Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent());
                     deposit.setDurationInDays(durationInDays);
+
+//                    deposit.calculateInterest(depositType.cast(depositType),deposit.setDepositBalance(depositBalance), deposit.setDurationInDays(durationInDays));
                 }
                 }
         } catch (ParserConfigurationException e) {
