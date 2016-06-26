@@ -41,10 +41,13 @@ public class XMLFileReader {
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
                     deposit.setCustomNumber(customerNumber);
+
                     BigDecimal depositBalance = new BigDecimal(element.getElementsByTagName("depositBalance").item(0).getTextContent());
                     deposit.setDepositBalance(depositBalance);
+
                     Long durationInDays = Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent());
                     deposit.setDurationInDays(durationInDays);
+
                     String str = element.getElementsByTagName("DepositType").item(0).getTextContent();
                     }
                 }
