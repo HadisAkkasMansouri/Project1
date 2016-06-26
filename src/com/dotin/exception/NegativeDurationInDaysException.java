@@ -1,4 +1,4 @@
-package com.dotin.business;
+package com.dotin.exception;
 
 public class NegativeDurationInDaysException extends Exception {
 
