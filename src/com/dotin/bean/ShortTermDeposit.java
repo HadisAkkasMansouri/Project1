@@ -2,6 +2,8 @@ package com.dotin.bean;
 
 public class ShortTermDeposit extends DepositType {
 
-    private int interestRate = 10;
-
+    @Override
+    public int getInterestRate(){
+        return 10;
+    }
 }
