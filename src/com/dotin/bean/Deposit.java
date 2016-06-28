@@ -54,7 +54,8 @@ public class Deposit implements Serializable {
 
     public  BigDecimal calculatePayedInterest(DepositType depositType, BigDecimal depositBalance, Long durationInDays){
         BigDecimal calculatePayedInterest =
-                (depositBalance.multiply(new BigDecimal(durationInDays).multiply(new BigDecimal(depositType.getInterestRate())))).divide(new BigDecimal(36500));
+                (depositBalance.multiply(new BigDecimal(durationInDays).multiply(new BigDecimal(depositType.getInterestRate()))));
+        calculatePayedInterest.divide(new BigDecimal("36500"));
         return calculatePayedInterest;
     }
 }
