@@ -39,8 +39,6 @@ public class XMLFileReader {
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
                     Class depositType = Class.forName(depositTypeStr);
                     DepositType depositType1 = (DepositType)depositType.newInstance();
-                    System.out.println(depositType1);
-
                     Deposit deposit = new Deposit();
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
