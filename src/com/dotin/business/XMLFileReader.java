@@ -56,17 +56,7 @@ public class XMLFileReader {
                     deposit.calculatePayedInterest(depositType1, deposit.setDepositBalance(depositBalance), deposit.setDurationInDays(durationInDays));
                 }
                 }
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
