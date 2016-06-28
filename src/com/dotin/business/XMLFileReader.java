@@ -39,9 +39,9 @@ public class XMLFileReader {
 //                    System.out.println("durationInDays: " + element.getElementsByTagName("durationInDays").item(0).getTextContent()+ "\n");
 
 
-//                    String depositTypeStr = element.getElementsByTagName("DepositType").item(0).getTextContent();
-//                    Class depositType = Class.forName(depositTypeStr);
-//                    DepositType depositType1 = (DepositType)depositType.newInstance();
+                    String depositTypeStr = element.getElementsByTagName("DepositType").item(0).getTextContent();
+                    Class depositType = Class.forName(depositTypeStr);
+                    DepositType depositType1 = (DepositType)depositType.newInstance();
                     Deposit deposit = new Deposit();
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
