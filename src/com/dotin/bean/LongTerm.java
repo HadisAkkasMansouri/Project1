@@ -6,5 +6,4 @@ public class LongTerm extends DepositType {
     public int getInterestRate(){
         return 20;
     }
-
 }
