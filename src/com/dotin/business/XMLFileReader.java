@@ -37,7 +37,7 @@ public class XMLFileReader {
 
 
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
-                    Class depositType = Class.forName(depositTypeStr);
+                    Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
                     DepositType depositType1 = (DepositType)depositType.newInstance();
                     Deposit deposit = new Deposit();
 
