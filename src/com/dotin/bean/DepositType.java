@@ -4,7 +4,7 @@ public class DepositType {
 
     private int interestRate;
 
-    public DepositType(){
+    public DepositType() {
         interestRate = getInterestRate();
     }
 
