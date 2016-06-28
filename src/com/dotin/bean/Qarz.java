@@ -6,5 +6,4 @@ public class Qarz extends DepositType {
     public int getInterestRate(){
         return 0;
     }
-
 }
