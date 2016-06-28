@@ -31,14 +31,15 @@ public class XMLFileReader {
                     Element element = (Element) node;
 
 //                    System.out.println("customerNumber: " + element.getElementsByTagName("customerNumber").item(0).getTextContent());
-//                    System.out.println("depositType: " + element.getElementsByTagName("depositType").item(0).getTextContent());
+                    System.out.println("depositType: " + element.getElementsByTagName("depositType").item(0).getTextContent());
 //                    System.out.println("depositBalance: " + element.getElementsByTagName("depositBalance").item(0).getTextContent());
 //                    System.out.println("durationInDays: " + element.getElementsByTagName("durationInDays").item(0).getTextContent()+ "\n");
 
 
-                    String depositTypeStr = element.getElementsByTagName("DepositType").item(0).getTextContent();
+                    String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
                     Class depositType = Class.forName(depositTypeStr);
                     DepositType depositType1 = (DepositType)depositType.newInstance();
+
                     Deposit deposit = new Deposit();
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
@@ -50,7 +51,8 @@ public class XMLFileReader {
                     Long durationInDays = Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent());
                     deposit.setDurationInDays(durationInDays);
 
-                    deposit.calculatePayedInterest(depositType1, deposit.setDepositBalance(depositBalance), deposit.setDurationInDays(durationInDays));
+//                    System.out.println(deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays));
+
                 }
                 }
         } catch (Exception e) {

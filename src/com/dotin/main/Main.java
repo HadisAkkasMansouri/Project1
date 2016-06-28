@@ -4,7 +4,6 @@ import com.dotin.business.XMLFileReader;
 import com.dotin.exception.NegativeDepositBalanceException;
 import com.dotin.exception.NegativeDurationInDaysException;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
