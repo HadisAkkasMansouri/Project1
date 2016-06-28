@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-public class XMLFileReader {
+public class FileReaderWriter {
 
     public static void readXMLFile(String url) throws NegativeDepositBalanceException, NegativeDurationInDaysException {
 
