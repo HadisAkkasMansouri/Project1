@@ -11,7 +11,9 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.math.BigDecimal;
 
 public class XMLFileReader {
@@ -35,7 +37,6 @@ public class XMLFileReader {
 //                    System.out.println("depositBalance: " + element.getElementsByTagName("depositBalance").item(0).getTextContent());
 //                    System.out.println("durationInDays: " + element.getElementsByTagName("durationInDays").item(0).getTextContent()+ "\n");
 
-
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
                     Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
                     DepositType depositType1 = (DepositType)depositType.newInstance();
@@ -50,7 +51,16 @@ public class XMLFileReader {
                     Long durationInDays = Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent());
                     deposit.setDurationInDays(durationInDays);
 
-                    System.out.println(deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays));
+                    deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays);
+
+                    File file = new File("D:/PayedInterestOutputFile.txt");
+                    if (!file.exists()) {
+                        file.createNewFile();
+                    }
+                    FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                    bufferedWriter.write(deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays))));
+                    fileWriter.close();
 
                 }
                 }
