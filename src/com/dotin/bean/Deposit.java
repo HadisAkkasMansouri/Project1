@@ -19,7 +19,7 @@ public class Deposit implements Serializable {
 
     public void setDepositBalance(BigDecimal depositBalance) throws NegativeDepositBalanceException {
 
-        if(depositBalance.compareTo(new BigDecimal(0)) < 0){
+        if(depositBalance.compareTo(BigDecimal.ZERO) < 0){
             throw new NegativeDepositBalanceException("Deposit Balance should be positive!");
         }
         this.depositBalance = depositBalance;
