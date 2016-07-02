@@ -19,40 +19,35 @@ public class Main {
         Collections.sort(depositList,(Deposit first, Deposit second)-> second.compareTo(first));
     }
 
-    // Write in output File
-    public static void writeFile(){
-        List<Deposit> depositList = new ArrayList<>();
-        Collections.sort(depositList, Collections.<Deposit>reverseOrder());
-        File file = new File("D:/PayedInterestOutputFile.txt");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
-            for (Deposit deposit1 : depositList) {
-                fileWriter.write(deposit1.getCustomNumber() + "#" + deposit1.getPayedInterest() + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String args[]) throws NegativeDurationInDaysException, NegativeDepositBalanceException, OtherDepositTypeException{
+
 
 //      "D:/DepositsFile.xml"
         Deposit deposit = new Deposit();
         System.out.println("Please enter the XML file to compute \"Deposit interests\"");
         Scanner scan = new Scanner(System.in);
         String url = scan.nextLine();
+        List<Deposit> depositList = new ArrayList<>();
+        Collections.sort(depositList, Collections.<Deposit>reverseOrder());
         try {
             XMLFileReader.readXMLFile(url);
-        } catch (NegativeDepositBalanceException e) {
+            File file = new File("D:/PayedInterestOutputFile.txt");
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
+                for (Deposit deposit1 : depositList) {
+                    fileWriter.write(deposit1.getCustomNumber() + "#" + deposit1.getPayedInterest() + "\n");
+                }
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+          catch (NegativeDepositBalanceException e) {
             e.printStackTrace();
         } catch (NegativeDurationInDaysException e) {
             e.printStackTrace();
         }
-        writeFile();
     }
 }
 
