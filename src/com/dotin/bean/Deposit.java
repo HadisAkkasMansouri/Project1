@@ -7,12 +7,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Deposit implements Serializable {
+public class Deposit implements Comparable<Deposit> {
 
     private BigDecimal depositBalance;
     private Long durationInDays ;
     private Long customNumber;
     DepositType depositType ;
+    BigDecimal payedInterest;
 
     public BigDecimal getDepositBalance() {
         return depositBalance;
@@ -53,10 +54,19 @@ public class Deposit implements Serializable {
         this.depositType = depositType;
     }
 
+    public BigDecimal getPayedInterest(){
+         return payedInterest;
+    }
+
     public  BigDecimal calculatePayedInterest(DepositType depositType, BigDecimal depositBalance, Long durationInDays){
         BigDecimal calculatePayedInterest =
                 (depositBalance.multiply(new BigDecimal(durationInDays).multiply(new BigDecimal(depositType.getInterestRate())))).divide(new BigDecimal("36500"), 2, BigDecimal.ROUND_HALF_UP);
         return calculatePayedInterest;
+    }
+
+    @Override
+    public int compareTo(Deposit deposit) {
+        return this.payedInterest.compareTo(deposit.payedInterest);
     }
 }
 
