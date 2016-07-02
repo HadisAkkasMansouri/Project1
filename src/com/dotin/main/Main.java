@@ -37,6 +37,7 @@ public class Main {
             e.printStackTrace();
         }
     }
+
     public static void main(String args[]) throws NegativeDurationInDaysException, NegativeDepositBalanceException, OtherDepositTypeException{
 
 //      "D:/DepositsFile.xml"
@@ -44,10 +45,8 @@ public class Main {
         System.out.println("Please enter the XML file to compute \"Deposit interests\"");
         Scanner scan = new Scanner(System.in);
         String url = scan.nextLine();
-
         try {
             XMLFileReader.readXMLFile(url);
-
         } catch (NegativeDepositBalanceException e) {
             e.printStackTrace();
         } catch (NegativeDurationInDaysException e) {
