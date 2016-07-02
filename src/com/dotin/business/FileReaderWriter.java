@@ -11,12 +11,14 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class XMLFileReader {
+public class FileReaderWriter {
 
     public static void readXMLFile(String url) throws NegativeDepositBalanceException, NegativeDurationInDaysException {
 
@@ -31,12 +33,6 @@ public class XMLFileReader {
                  Node node = nodeList.item(i);
                 if ( node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
-
-//                    System.out.println("customerNumber: " + element.getElementsByTagName("customerNumber").item(0).getTextContent());
-//                    System.out.println("depositType: " + element.getElementsByTagName("depositType").item(0).getTextContent());
-//                    System.out.println("depositBalance: " + element.getElementsByTagName("depositBalance").item(0).getTextContent());
-//                    System.out.println("durationInDays: " + element.getElementsByTagName("durationInDays").item(0).getTextContent()+ "\n");
-
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
                     Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
                     DepositType depositType1 = (DepositType)depositType.newInstance();
@@ -53,15 +49,18 @@ public class XMLFileReader {
 
                     deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays);
 
+
+                    List<Deposit> depositList = new ArrayList<>();
+                    Collections.sort(depositList, Collections.<Deposit>reverseOrder());
                     File file = new File("D:/PayedInterestOutputFile.txt");
                     if (!file.exists()) {
                         file.createNewFile();
                     }
-                    FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
-                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                    bufferedWriter.write(deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays))));
+                        FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
+                    for (Deposit deposit1 : depositList){
+                        fileWriter.write(deposit1.getCustomNumber() + "#" + deposit1.calculatePayedInterest(depositType1, depositBalance, durationInDays));
+                    }
                     fileWriter.close();
-
                 }
                 }
         } catch (Exception e) {
