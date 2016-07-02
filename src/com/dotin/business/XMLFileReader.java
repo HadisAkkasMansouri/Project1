@@ -21,23 +21,23 @@ import java.util.List;
 
 public class XMLFileReader {
 
-    public static void readXMLFile(String url) throws NegativeDepositBalanceException, NegativeDurationInDaysException {
+    public static List<Deposit> readXMLFile( ) throws NegativeDepositBalanceException, NegativeDurationInDaysException {
 
-
+        List<Deposit> deposits = null;
         try {
 
-            File xmlfile = new File(url);
+            File xmlfile = new File("D:/DepositsFile.xml");
             DocumentBuilderFactory dbfactory = DocumentBuilderFactoryImpl.newInstance();
             DocumentBuilder dBuilder = dbfactory.newDocumentBuilder();
             Document document = dBuilder.parse(xmlfile);
             NodeList nodeList = document.getElementsByTagName("deposit");
-            for (int i = 0; i<nodeList.getLength(); i++){
-                 Node node = nodeList.item(i);
-                if ( node.getNodeType() == Node.ELEMENT_NODE) {
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
                     Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
-                    DepositType depositType1 = (DepositType)depositType.newInstance();
+                    DepositType depositType1 = (DepositType) depositType.newInstance();
                     Deposit deposit = new Deposit();
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
@@ -50,11 +50,15 @@ public class XMLFileReader {
                     deposit.setDurationInDays(durationInDays);
 
                     deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays);
+
+                    deposits = new ArrayList<>();
+                    deposits.add((Deposit) nodeList);
                 }
-                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return (deposits);
     }
 }
 
