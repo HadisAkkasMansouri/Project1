@@ -12,20 +12,18 @@ import org.w3c.dom.Node;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class XMLFileReader {
 
-    public static List<Deposit> readXMLFile( ) throws NegativeDepositBalanceException, NegativeDurationInDaysException {
+    public static List<Deposit> readXMLFile() throws NegativeDepositBalanceException, NegativeDurationInDaysException {
 
-        List<Deposit> deposits = null;
+
         try {
-
+            List<Deposit> depositList = new ArrayList<>();
+            Deposit deposit = new Deposit();
             File xmlfile = new File("D:/DepositsFile.xml");
             DocumentBuilderFactory dbfactory = DocumentBuilderFactoryImpl.newInstance();
             DocumentBuilder dBuilder = dbfactory.newDocumentBuilder();
@@ -38,7 +36,6 @@ public class XMLFileReader {
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
                     Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
                     DepositType depositType1 = (DepositType) depositType.newInstance();
-                    Deposit deposit = new Deposit();
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
                     deposit.setCustomNumber(customerNumber);
@@ -50,15 +47,14 @@ public class XMLFileReader {
                     deposit.setDurationInDays(durationInDays);
 
                     deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays);
-
-                    deposits = new ArrayList<>();
-                    deposits.add((Deposit) nodeList);
                 }
             }
+            depositList.add(deposit);
+            return depositList;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return (deposits);
+        return null;
     }
 }
 
