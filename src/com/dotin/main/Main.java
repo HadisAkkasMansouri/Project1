@@ -15,7 +15,7 @@ public class Main {
 
         XMLFileReader.readXMLFile();
         List<Deposit> depositList = XMLFileReader.readXMLFile();
-        Collections.sort(depositList);
+        Collections.sort(depositList,Collections.<Deposit>reverseOrder());
         RandomAccessFile file = null;
         try {
             file = new RandomAccessFile("OutputFile.txt","rw");
