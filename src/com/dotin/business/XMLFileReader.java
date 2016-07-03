@@ -46,6 +46,10 @@ public class XMLFileReader {
                     Long durationInDays = Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent());
                     deposit.setDurationInDays(durationInDays);
 
+                    deposit.setDepositType(depositType1);
+
+                    deposit.setPayedInterest(deposit.getPayedInterest());
+
                     deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays);
                 }
             }
