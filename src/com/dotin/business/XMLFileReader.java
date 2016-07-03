@@ -21,7 +21,6 @@ public class XMLFileReader {
 
     public static List<Deposit> readXMLFile() throws NegativeDepositBalanceException, NegativeDurationInDaysException, OtherDepositTypeException {
 
-
         try {
             List<Deposit> depositList = new ArrayList<>();
             File xmlfile = new File("DepositsFile.xml");
