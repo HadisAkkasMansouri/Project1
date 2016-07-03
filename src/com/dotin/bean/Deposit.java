@@ -47,12 +47,16 @@ public class Deposit implements Comparable<Deposit> {
         return depositType;
     }
 
-    public void seDepositType(DepositType depositType){
+    public void setDepositType(DepositType depositType){
         this.depositType = depositType;
     }
 
     public BigDecimal getPayedInterest(){
          return payedInterest;
+    }
+
+    public void setPayedInterest(){
+        this.payedInterest = payedInterest;
     }
 
     public  BigDecimal calculatePayedInterest(DepositType depositType, BigDecimal depositBalance, Long durationInDays){
