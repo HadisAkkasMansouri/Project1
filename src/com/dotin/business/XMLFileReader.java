@@ -34,12 +34,12 @@ public class XMLFileReader {
                 Deposit deposit = new Deposit();
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
-
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
                     Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
                     if (!(depositTypeStr.equals(depositType))){
                         throw new OtherDepositTypeException("This Deposit Type is not recognised!");
                     }
+
                     DepositType depositType1 = (DepositType) depositType.newInstance();
                     deposit.setDepositType(depositType1);
 
@@ -57,7 +57,6 @@ public class XMLFileReader {
                         deposit.setDurationInDays(durationInDays);
                         throw new NegativeDurationInDaysException("Duration in days should be positive!");
                     }
-
 
                     deposit.setPayedInterest(deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays));
                 }
