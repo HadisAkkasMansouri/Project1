@@ -33,7 +33,6 @@ public class XMLFileReader {
                 Deposit deposit = new Deposit();
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
-
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
                     if (!((depositTypeStr.equals("ShortTerm")||(depositTypeStr.equals("LongTerm"))||(depositTypeStr.equals("Qarz"))))){
                         throw new OtherDepositTypeException("This Deposit Type is not recognised!");
