@@ -23,18 +23,19 @@ public class XMLFileReader {
 
         try {
             List<Deposit> depositList = new ArrayList<>();
-            Deposit deposit = new Deposit();
-            File xmlfile = new File("D:/DepositsFile.xml");
+            File xmlfile = new File("DepositsFile.xml");
             DocumentBuilderFactory dbfactory = DocumentBuilderFactoryImpl.newInstance();
             DocumentBuilder dBuilder = dbfactory.newDocumentBuilder();
             Document document = dBuilder.parse(xmlfile);
             NodeList nodeList = document.getElementsByTagName("deposit");
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
+                Deposit deposit = new Deposit();
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
                     Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
+
                     DepositType depositType1 = (DepositType) depositType.newInstance();
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
@@ -50,9 +51,9 @@ public class XMLFileReader {
 
                     deposit.setPayedInterest(deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays));
                 }
+                depositList.add(deposit);
             }
-            depositList.add(deposit);
-            return depositList;
+                return depositList;
         } catch (Exception e) {
             e.printStackTrace();
         }
