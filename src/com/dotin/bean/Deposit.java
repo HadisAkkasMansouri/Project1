@@ -2,10 +2,7 @@ package com.dotin.bean;
 
 import com.dotin.exception.NegativeDepositBalanceException;
 import com.dotin.exception.NegativeDurationInDaysException;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class Deposit implements Comparable<Deposit> {
 
@@ -66,7 +63,7 @@ public class Deposit implements Comparable<Deposit> {
 
     @Override
     public int compareTo(Deposit deposit) {
-        return this.payedInterest.compareTo(deposit.payedInterest);
+        return -1 * (this.payedInterest.compareTo(deposit.payedInterest));
     }
 }
 
