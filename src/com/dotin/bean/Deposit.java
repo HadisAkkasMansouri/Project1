@@ -55,7 +55,7 @@ public class Deposit implements Comparable<Deposit> {
          return payedInterest;
     }
 
-    public void setPayedInterest(){
+    public void setPayedInterest(BigDecimal payedInterest){
         this.payedInterest = payedInterest;
     }
 
