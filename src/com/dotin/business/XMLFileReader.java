@@ -48,9 +48,9 @@ public class XMLFileReader {
 
                     deposit.setDepositType(depositType1);
 
-                    deposit.setPayedInterest(deposit.getPayedInterest());
-
                     deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays);
+
+                    deposit.setPayedInterest(deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays));
                 }
             }
             depositList.add(deposit);
