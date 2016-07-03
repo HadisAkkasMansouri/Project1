@@ -4,6 +4,7 @@ import com.dotin.bean.Deposit;
 import com.dotin.bean.DepositType;
 import com.dotin.exception.NegativeDepositBalanceException;
 import com.dotin.exception.NegativeDurationInDaysException;
+import com.dotin.exception.OtherDepositTypeException;
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class XMLFileReader {
 
-    public static List<Deposit> readXMLFile() throws NegativeDepositBalanceException, NegativeDurationInDaysException {
+    public static List<Deposit> readXMLFile() throws NegativeDepositBalanceException, NegativeDurationInDaysException, OtherDepositTypeException {
 
 
         try {
@@ -33,29 +34,44 @@ public class XMLFileReader {
                 Deposit deposit = new Deposit();
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
+
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
                     Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
-
+                    if (!(depositTypeStr.equals(depositType))){
+                        throw new OtherDepositTypeException("this deposit type is not recognised!");
+                    }
                     DepositType depositType1 = (DepositType) depositType.newInstance();
+                    deposit.setDepositType(depositType1);
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
                     deposit.setCustomNumber(customerNumber);
 
                     BigDecimal depositBalance = new BigDecimal(element.getElementsByTagName("depositBalance").item(0).getTextContent());
-                    deposit.setDepositBalance(depositBalance);
+                    if (depositBalance.compareTo(BigDecimal.ZERO) < 0) {
+                        deposit.setDepositBalance(depositBalance);
+                        throw new NegativeDepositBalanceException("Deposit Balance should be positive!");
+                    }
 
                     Long durationInDays = Long.valueOf(element.getElementsByTagName("durationInDays").item(0).getTextContent());
-                    deposit.setDurationInDays(durationInDays);
+                    if(durationInDays < 0){
+                        deposit.setDurationInDays(durationInDays);
+                        throw new NegativeDurationInDaysException("Duration in days should be positive!");
+                    }
 
-                    deposit.setDepositType(depositType1);
 
                     deposit.setPayedInterest(deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays));
                 }
                 depositList.add(deposit);
             }
-                return depositList;
-        } catch (Exception e) {
+            return depositList;
+        } catch(NegativeDepositBalanceException e){
             e.printStackTrace();
+        }catch(NegativeDurationInDaysException e1){
+            e1.printStackTrace();
+        }catch(OtherDepositTypeException e2){
+            e2.printStackTrace();
+        }catch(Exception e3){
+            e3.printStackTrace();
         }
         return null;
     }
