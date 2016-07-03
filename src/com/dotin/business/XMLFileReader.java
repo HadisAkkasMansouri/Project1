@@ -35,10 +35,10 @@ public class XMLFileReader {
                     Element element = (Element) node;
 
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
-                    Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
-                    if (!(depositType.equals(depositTypeStr))){
+                    if (!((depositTypeStr.equals("ShortTerm")||(depositTypeStr.equals("LongTerm"))||(depositTypeStr.equals("Qarz"))))){
                         throw new OtherDepositTypeException("This Deposit Type is not recognised!");
                     }
+                    Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
                     DepositType depositType1 = (DepositType) depositType.newInstance();
                     deposit.setDepositType(depositType1);
 
