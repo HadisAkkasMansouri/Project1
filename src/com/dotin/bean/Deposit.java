@@ -1,7 +1,5 @@
 package com.dotin.bean;
 
-import com.dotin.exception.NegativeDepositBalanceException;
-import com.dotin.exception.NegativeDurationInDaysException;
 import java.math.BigDecimal;
 
 public class Deposit implements Comparable<Deposit> {
@@ -16,11 +14,7 @@ public class Deposit implements Comparable<Deposit> {
         return depositBalance;
     }
 
-    public void setDepositBalance(BigDecimal depositBalance) throws NegativeDepositBalanceException {
-
-        if(depositBalance.compareTo(BigDecimal.ZERO) < 0){
-            throw new NegativeDepositBalanceException("Deposit Balance should be positive!");
-        }
+    public void setDepositBalance(BigDecimal depositBalance){
         this.depositBalance = depositBalance;
     }
 
@@ -28,10 +22,7 @@ public class Deposit implements Comparable<Deposit> {
         return durationInDays;
     }
 
-    public void setDurationInDays(Long durationInDays) throws NegativeDurationInDaysException {
-        if(durationInDays < 0){
-            throw new NegativeDurationInDaysException("Duration in days should be positive!");
-        }
+    public void setDurationInDays(Long durationInDays){
         this.durationInDays = durationInDays;
     }
 
