@@ -50,15 +50,15 @@ public class Deposit implements Comparable<Deposit> {
         this.payedInterest = payedInterest;
     }
 
-    public  BigDecimal calculatePayedInterest(DepositType depositType, BigDecimal depositBalance, Long durationInDays){
-        BigDecimal calculatePayedInterest =
-                (depositBalance.multiply(new BigDecimal(durationInDays).multiply(new BigDecimal(depositType.getInterestRate())))).divide(new BigDecimal("36500"), 2, BigDecimal.ROUND_HALF_UP);
-        return calculatePayedInterest;
+    public void calculatePayedInterest(DepositType depositType, BigDecimal depositBalance, Long durationInDays){
+        payedInterest = (depositBalance.multiply(new BigDecimal(durationInDays)
+                .multiply(new BigDecimal(depositType.getInterestRate()))))
+                .divide(new BigDecimal("36500"), 2, BigDecimal.ROUND_HALF_UP);
     }
 
     @Override
     public int compareTo(Deposit deposit) {
-        return this.payedInterest.compareTo(deposit.payedInterest);
+        return -1 * this.payedInterest.compareTo(deposit.payedInterest);
     }
 }
 
