@@ -4,7 +4,6 @@ import com.dotin.bean.Deposit;
 import com.dotin.bean.DepositType;
 import com.dotin.exception.NegativeDepositBalanceException;
 import com.dotin.exception.NegativeDurationInDaysException;
-import com.dotin.exception.OtherDepositTypeException;
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -64,16 +63,12 @@ public class XMLFileReader {
             e.printStackTrace();
         } catch(NegativeDurationInDaysException e){
             e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-//        } catch (SAXException e) {
-//            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
