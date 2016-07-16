@@ -10,20 +10,23 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class XMLFileReader {
 
-    public static List<Deposit> readXMLFile() throws NegativeDepositBalanceException, NegativeDurationInDaysException, OtherDepositTypeException {
-
+    public static List<Deposit> readXMLFile() throws IOException, SAXException {
         try {
             List<Deposit> depositList = new ArrayList<>();
-            File xmlfile = new File("DepositsFile.xml");
+            File xmlfile = new File("depositsFile.xml");
             DocumentBuilderFactory dbfactory = DocumentBuilderFactoryImpl.newInstance();
             DocumentBuilder dBuilder = dbfactory.newDocumentBuilder();
             Document document = dBuilder.parse(xmlfile);
@@ -34,12 +37,9 @@ public class XMLFileReader {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
                     String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
-                    if (!((depositTypeStr.equals("ShortTerm")||(depositTypeStr.equals("LongTerm"))||(depositTypeStr.equals("Qarz"))))){
-                        throw new OtherDepositTypeException("This Deposit Type is not recognised!");
-                    }
-                    Class depositType = Class.forName("com.dotin.bean." + depositTypeStr);
-                    DepositType depositType1 = (DepositType) depositType.newInstance();
-                    deposit.setDepositType(depositType1);
+
+                    DepositType depositType = (DepositType) Class.forName("com.dotin.bean." + depositTypeStr).newInstance();
+                    deposit.setDepositType(depositType);
 
                     Long customerNumber = Long.valueOf(element.getElementsByTagName("customerNumber").item(0).getTextContent());
                     deposit.setCustomNumber(customerNumber);
@@ -55,19 +55,27 @@ public class XMLFileReader {
                         deposit.setDurationInDays(durationInDays);
                         throw new NegativeDurationInDaysException("Duration in days should be positive!");
                     }
-                    deposit.setPayedInterest(deposit.calculatePayedInterest(depositType1, depositBalance, durationInDays));
+                    deposit.calculatePayedInterest(depositType, depositBalance, durationInDays);
                 }
                 depositList.add(deposit);
             }
             return depositList;
         } catch(NegativeDepositBalanceException e){
             e.printStackTrace();
-        }catch(NegativeDurationInDaysException e1){
-            e1.printStackTrace();
-        }catch(OtherDepositTypeException e2){
-            e2.printStackTrace();
-        }catch(Exception e3){
-            e3.printStackTrace();
+        } catch(NegativeDurationInDaysException e){
+            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+//        } catch (SAXException e) {
+//            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return null;
     }
