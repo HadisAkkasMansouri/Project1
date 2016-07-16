@@ -21,6 +21,5 @@ public class Main {
                 file.writeBytes(deposit.getCustomNumber() + "#" + deposit.getPayedInterest() + "\n");
             }
             file.close();
-
     }
 }
