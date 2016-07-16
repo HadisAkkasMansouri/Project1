@@ -39,7 +39,6 @@ public class DepositHandler {
                         String depositTypeStr = element.getElementsByTagName("depositType").item(0).getTextContent();
 
                         DepositType depositType;
-
                         try {
                             depositType = (DepositType) Class.forName("com.dotin.bean." + depositTypeStr).newInstance();
                         } catch (ClassNotFoundException e) {
